@@ -7,8 +7,22 @@ using System.Web.UI.WebControls;
 
 public partial class watch : System.Web.UI.Page
 {
-    protected void Page_Load(object sender, EventArgs e)
-    {
 
+
+    protected void DataList1_ItemCommand1(object source, DataListCommandEventArgs e)
+    {
+        if (Session["username"] == null)
+        {
+            Response.Redirect("login.aspx");
+        }
+        else if (e.CommandName == "addtocart")
+        {
+
+            //DropDownList dlist = (DropDownList)(e.Item.FindControl("DropDownList1"));
+            Response.Redirect("wCart.aspx?id=" + e.CommandArgument.ToString());
+
+        }
     }
+
+
 }

@@ -61,20 +61,61 @@
 								<ul class="dropdown-menu">
 									<li class="nav-item"><a class="nav-link" href="clothprod.aspx">clothing</a></li>
 									<li class="nav-item"><a class="nav-link" href="watch.aspx">Watches</a></li>
-									<!-- <li class="nav-item"><a class="nav-link" href="checkout.html">Shoes</a></li>
-									<li class="nav-item"><a class="nav-link" href="cart.html">Sport ware</a></li>
-									<li class="nav-item"><a class="nav-link" href="confirmation.html">bagpack</a></li> -->
 								</ul>
 							</li>
 						
-							<li class="nav-item submenu dropdown">
-								<a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-								 aria-expanded="false"  href="aboutus.aspx">about us</a>
+							
+								<li class="nav-item "><a class="nav-link" href="aboutus.aspx">about us</a></li>
 								
-							</li>
+							
 							<li class="nav-item"><a class="nav-link" href="Contact.aspx">Contact</a></li>
                                  <% if (Session["username"] == null) { %>
-                                      <li class="nav-item"><a class="nav-link" href="login.aspx">Login </a> / <a class="nav-link" href="RegisteRC.aspx"> Register</a></li>
+                           
+                            
+                            <% if (Session["username1"] == null) { %>
+								 <li class="nav-item submenu dropdown">
+								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+								 aria-expanded="false">Seller</a>
+								<ul class="dropdown-menu">
+									<li class="nav-item"><a class="nav-link" href="sellerlogin.aspx">Login</a></li>
+									<li class="nav-item"><a class="nav-link" href="sellerreg.aspx">Register</a></li>
+								</ul>
+								 
+                                  <li class="nav-item"><a class="nav-link" href="login.aspx">Login </a> / <a class="nav-link" href="RegisteRC.aspx"> Register</a></li>
+							
+                            <% 
+                                            }  else { %>
+							
+								 
+                              <li class="nav-item submenu dropdown">   <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+								 aria-expanded="false">Seller</a>
+								<ul class="dropdown-menu">
+									<li class="nav-item"><a class="nav-link" href="sellerprodadd.aspx">cloth</a></li>
+									<li class="nav-item"><a class="nav-link" href="sellerreg.aspx">watch</a></li>
+								</ul></li>
+								 <li class="nav-item submenu dropdown"> 
+                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+								 aria-expanded="false">add product</a>
+								<ul class="dropdown-menu">
+									<li class="nav-item"><a class="nav-link" href="sellerprodadd.aspx">Cloth</a></li>
+									<li class="nav-item"><a class="nav-link" href="watch.aspx">watch</a></li>
+								</ul>
+
+                             </li>
+                                 <li class="nav-item submenu dropdown"> <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+								 aria-expanded="false">Profile</a>
+                                            <ul class="dropdown-menu">
+                                             <li class="nav-item"><a class="nav-link" href="sellerdataupdate.aspx">Update Data</a></li>
+									        <li class="nav-item"><a class="nav-link" href="sellerchangepass.aspx">Change Password</a></li>
+									        </ul>
+                                        </li>
+                            <li class="nav-item"><a class="nav-link" href="logout.aspx"> Logout</a></li>
+                             <%} %>
+							
+                                      
+                            
+                       
+                            
                                              
                             <% 
                                              } else { %>
@@ -86,15 +127,18 @@
 									        <li class="nav-item"><a class="nav-link" href="chngpass.aspx">Change Password</a></li>
 									        </ul>
                                         </li>
+                                        
                                           <li class="nav-item"><a class="nav-link" href="logout.aspx">Logout</a></li>
                                          <%} %>
 						</ul>
-						<ul class="nav navbar-nav navbar-right">
+						<ul class="nav navbar-nav navbar-right ">
 							<li class="nav-item"><a href="Cart.aspx" class="cart"><span class="ti-bag"></span></a></li>
 							<li class="nav-item">
-								<button class="search"><span class="lnr lnr-magnifier" id="search"></span></button>
+								<!--<button class="search"><span class="lnr lnr-magnifier" id="search"></span></button>-->
 							</li>
 						</ul>
+                        
+                       
 					</div>
 				</div>
 			</nav>
@@ -183,39 +227,11 @@
 					<div class="single-footer-widget">
 						<h6>About Us</h6>
 						<p>
-							We give product on Rent have fun with us
+							We give the cloth and watchs on rent so user can take that and use that
 						</p>
 					</div>
 				</div>
-				<!--<div class="col-lg-4  col-md-6 col-sm-6">
-					<div class="single-footer-widget">
-						<h6>Newsletter</h6>
-						<p>Stay update with our latest</p>
-						<div class="" id="mc_embed_signup">
-
-							<form target="_blank" novalidate="true" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
-							 method="get" class="form-inline">
-
-								<div class="d-flex flex-row">
-
-									<input class="form-control" name="EMAIL" placeholder="Enter Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Email '"
-									 required="" type="email">
-
-
-									<button class="click-btn btn btn-default"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></button>
-									<div style="position: absolute; left: -5000px;">
-										<input name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value="" type="text" />
-									</div>
-
-									<!-- <div class="col-lg-4 col-md-4">
-												<button class="bb-btn btn"><span class="lnr lnr-arrow-right"></span></button>
-											</div>  
-								</div>
-								<div class="info"></div>
-							</form>
-						</div>
-					</div>
-				</div> -->
+				
 				
 				<div class="col-lg-2 col-md-6 col-sm-6">
 					<div class="single-footer-widget">
@@ -228,7 +244,14 @@
 							<a href="#"><i class="fa fa-behance"></i></a>
 						</div>
 					</div>
+                    </div>
+                    <div class="col-lg-4  col-md-6 col-sm-6">
+					<div class="single-footer-widget">
+						<h6>Copy Right</h6>
+						<p> © Devlop and Design byPradip chauhan</p>
+					</div>
 				</div>
+			
 			</div>
 		</div>
 	</footer>

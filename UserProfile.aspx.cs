@@ -14,10 +14,53 @@ public partial class UserProfile : System.Web.UI.Page
     SqlConnection dbcon = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\Database.mdf;Integrated Security=True");
     protected void Page_Load(object sender, EventArgs e)
     {
-        if(! IsPostBack){
-           
+        TextBox1.Enabled = false;
+        TextBox2.Enabled = false;
+        TextBox3.Enabled = false;
+        TextBox4.Enabled = false;
+        TextBox5.Enabled = false;
+        TextBox6.Enabled = false;
+        TextBox7.Enabled = false;
+        TextBox8.Enabled = false;
+        Button4.Visible = false;
+        Button1.Visible = false;
+
+        if (!IsPostBack)
+        {
+            info();
         }
-       dbcon.Open();
+    }
+    protected void Button4_Click(object sender, EventArgs e)
+    {
+        TextBox1.Text = "";
+        TextBox2.Text = "";
+        TextBox3.Text = "";
+        TextBox4.Text = "";
+        TextBox5.Text = "";
+        TextBox6.Text = "";
+        TextBox7.Text = "";
+        TextBox8.Text = "";
+
+
+    }
+    protected void Button3_Click(object sender, EventArgs e)
+    {
+        TextBox1.Enabled = true;
+        TextBox2.Enabled = true;
+        TextBox3.Enabled = true;
+        TextBox4.Enabled = true;
+        TextBox5.Enabled = true;
+        TextBox6.Enabled = true;
+        TextBox7.Enabled = true;
+        TextBox8.Enabled = true;
+        Button4.Visible = true;
+        Button1.Visible = true;
+        Button3.Visible = false;
+    }
+    
+protected void info()
+    { 
+        dbcon.Open();
         string selectCmd = "select * from RegisteRC where Email_id='" + Session["username"] + "'";
         SqlCommand cmd = new SqlCommand(selectCmd, dbcon);
         SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -43,21 +86,19 @@ public partial class UserProfile : System.Web.UI.Page
     {
 
         dbcon.Open();
-        SqlCommand cmd = new SqlCommand("UPDATE  RegisteRC SET  First_Name=@First_Name,Last_Name=@Last_Name,Contact_no=@Contact_no,Email_ID=@Email_ID,Address=@Address,Tv=@Tv,Grandmother=@Grandmother,Edecutation=@Edecutation where ='" + Session["username"] + "', dbcon");
-        SqlDataAdapter da = new SqlDataAdapter(cmd);
-        DataSet ds = new DataSet();
-        //DataTable DT = new DataTable(RegisteRc);
-       cmd.Parameters.AddWithValue("@First_Name", TextBox1.Text);
+        SqlCommand cmd = new SqlCommand("UPDATE  [RegisteRC] SET  First_Name= '" + TextBox1.Text + "' ,Last_Name= '" + TextBox2.Text + "',Contact_no= '" + TextBox4.Text + "' ,Address=  '" + TextBox8.Text + "',Tv= '" + TextBox5.Text + "' ,Grandmother= '" + TextBox6.Text + "' ,Edecutation= '" + TextBox7.Text + "' where Email_ID = '" + Session["username"]+"'" , dbcon);
+       
+        /*cmd.Parameters.AddWithValue("@First_Name", TextBox1.Text);
         cmd.Parameters.AddWithValue("@Last_Name", TextBox2.Text);
         cmd.Parameters.AddWithValue("@Contact_no", TextBox4.Text);
         cmd.Parameters.AddWithValue("@Email_ID", TextBox3.Text);
         cmd.Parameters.AddWithValue("@Address", TextBox8.Text);
         cmd.Parameters.AddWithValue("@Tv", TextBox5.Text);
         cmd.Parameters.AddWithValue("@Grandmother", TextBox6.Text);
-        cmd.Parameters.AddWithValue("@Edecutation", TextBox7.Text);
-       
-        da.Fill(ds);
-        //cmd.ExecuteNonQuery();
+        cmd.Parameters.AddWithValue("@Edecutation", TextBox7.Text);*/
+        cmd.ExecuteNonQuery();
+        cmd.Dispose();
         dbcon.Close();
+
     }
 }

@@ -16,57 +16,49 @@
             height: 29px;
             width: 244px;
         }
-        .auto-style5 {
+        .auto-style7 {
             width: 244px;
-            height: 30px;
+            height: 28px;
         }
-        .auto-style6 {
-            height: 30px;
+        .auto-style8 {
+            height: 28px;
         }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     
-   <asp:Label ID="Label1" runat="server" Font-Bold="True" Font-Size="X-Large" Text="Add Product Details"></asp:Label>
+  
     <br />
-    <table border="1" class="auto-style1">
-        <tr>
-            <td class="auto-style5">Product ID</td>
-            <td class="auto-style6">
-                <asp:Label ID="Label2" runat="server" Font-Bold="True"></asp:Label>
-            </td>
-        </tr>
+    <center><table class="auto-style1">
         <tr>
             <td class="auto-style3">Product Name</td>
             <td>
-                <asp:TextBox ID="TextBox1" runat="server" Height="21px" Width="236px"></asp:TextBox>
+                <asp:TextBox ID="TextBox1" runat="server" Height="21px" Width="236px" BorderColor="#FF6600" autocomplete="off"></asp:TextBox>
             </td>
         </tr>
         <tr>
             <td class="auto-style3">Price</td>
             <td>
-                <asp:TextBox ID="TextBox2" runat="server" Height="21px" Width="236px"></asp:TextBox>
+                <asp:TextBox ID="TextBox2" runat="server" Height="21px" Width="236px" BorderColor="#FF6600" autocomplete="off"></asp:TextBox>
             </td>
         </tr>
         <tr>
-            <td class="auto-style3">Upload Product Image</td>
-            <td>
-                <asp:FileUpload ID="FileUpload1" runat="server" />
+            <td class="auto-style7">Upload Product Image</td>
+            <td class="auto-style8">
+                <asp:fileupload id="FileUpload1" runat="server" />
+                
             </td>
         </tr>
         <tr>
             <td class="auto-style4"></td>
             <td class="auto-style2">
-                <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Save Product" />
+                <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Save Product" BorderColor="#FF6600" />
                 <br />
-                <asp:Label ID="Label3" runat="server"></asp:Label>
+                <asp:Label ID="Label3" runat="server" BorderColor="#FF6600"></asp:Label>
             </td>
         </tr>
-    </table>
+    </table></center>
     <br />
-    <br />
-    <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/WebForm1.aspx">View All Prduct</asp:HyperLink>
-    <br />-->
 
 
 </asp:Content>

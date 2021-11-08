@@ -10,36 +10,31 @@ using System.Data.SqlClient;
 public partial class Sellerhm : System.Web.UI.Page
 {
     static String imagelink;
-    protected void Page_Load(object sender, EventArgs e)
-    {
-       // if (!IsPostBack)
-        //{
-       //     getproductid();
-      //  }
-    //
-    }
-
-
-  
 
         protected void Button1_Click(object sender, EventArgs e)
         {
             if (uploadimage() == true)
             {
-                string query = "insert into cloth (productid,productname,Price,productimage) values(" + Label2.Text + ",'" + TextBox1.Text + "','" + TextBox2.Text + "','" + imagelink + "')";
+                //string query = "insert into [cloth] (productname,Price,productimage) values( @productname,@Price,@productimage)";
                 SqlConnection mycon = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\Database.mdf;Integrated Security=True");
                 mycon.Open();
-                SqlCommand cmd = new SqlCommand(query, mycon);
+            
+            SqlCommand cmd = new SqlCommand("insert into [cloth] (productname,Price,productimage) values( @productname,@Price,@productimage)", mycon);
+          
+            cmd.Parameters.AddWithValue("@productname", TextBox1.Text);
+            cmd.Parameters.AddWithValue("@Price",TextBox2.Text);
+            cmd.Parameters.AddWithValue("@productimage",imagelink);
 
-                //cmd.CommandText = query;
-                //cmd.Connection = con;
+         
+             TextBox1.Text = "";
+            TextBox2.Text = "";
 
-                Label3.Text = "Product Has Been Successfully Saved";
-                //getproductid();
-                TextBox1.Text = "";
-                TextBox2.Text = "";
-                //cmd.ExecuteNonQuery();
-            }
+            cmd.ExecuteNonQuery();
+            mycon.Close();
+            Label3.Text = "Product Has Been Successfully Saved";
+            Label3.ForeColor = System.Drawing.Color.Green;
+
+        }
 
         }
         private Boolean uploadimage()
@@ -50,24 +45,27 @@ public partial class Sellerhm : System.Web.UI.Page
 
                 String contenttype = FileUpload1.PostedFile.ContentType;
 
-                if (contenttype == "image/jpeg")
+          
+            if (contenttype == "image/jpeg")
                 {
 
-                    FileUpload1.SaveAs(Server.MapPath("~/img/") + Label3.Text + ".jpg");
-                    imagelink = "img/" + Label3.Text + ".jpg";
-                    imagesaved = true;
+                FileUpload1.SaveAs(Server.MapPath("img/cloth/") + TextBox1.Text + ".jpg");
+                imagelink = "img/cloth/" +TextBox1.Text+".jpg";
+                imagesaved = true;
                 }
                 else
                 {
                     Label3.Text = "Kindly Upload JPEG Format Image Only";
-                }
+                    Label3.ForeColor = System.Drawing.Color.Red;
+            }
 
             }
 
             else
             {
                 Label3.Text = "You have not selected any file - Browse and Select File First";
-            }
+                Label3.ForeColor = System.Drawing.Color.Red;
+        }
 
             return imagesaved;
 
@@ -85,19 +83,13 @@ public partial class Sellerhm : System.Web.UI.Page
         DataSet ds = new DataSet();
         da.Fill(ds);
         scon.Close();
-       // if (ds.Tables[0].Rows.Count < 1)
-       // {
-         //   Label3.Text = "1001";
-
-        //}
-       // else
-       // {
+      
 
 
 
             String mycon1 = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\Database.mdf;Integrated Security=True";
             SqlConnection scon1 = new SqlConnection(mycon1);
-            String myquery1 = "select max(productid) from productdetail";
+            String myquery1 = "select max(productId) from cloth";
             SqlCommand cmd1 = new SqlCommand();
             cmd1.CommandText = myquery1;
             cmd1.Connection = scon1;
@@ -106,10 +98,7 @@ public partial class Sellerhm : System.Web.UI.Page
             DataSet ds1 = new DataSet();
             da1.Fill(ds1);
             Label3.Text = ds1.Tables[0].Rows[0][0].ToString();
-           // int a;
-          //  a = Convert.ToInt16(Label3.Text);
-          //  a = a + 1;
-           // Label3.Text = a.ToString();
+          
             scon1.Close();
      }
 

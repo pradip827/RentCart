@@ -39,7 +39,31 @@
 						<p>Free Shipping on all order</p>
 					</div>
 				</div>
-				<!-- single features -->
+				<!-- single features 
+                     <ul class="nav navbar-nav menu_nav active">
+                        <li class="nav-item submenu dropdown">
+                            <% if (Session["username1"] == null) { %>
+								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+								 aria-expanded="false">Seller</a>
+								<ul class="dropdown-menu">
+									<li class="nav-item"><a class="nav-link" href="sellerlogin.aspx">Login</a></li>
+									<li class="nav-item"><a class="nav-link" href="sellerreg.aspx">Register</a></li>
+								</ul>
+                            <% 
+                                             } else { %>
+
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+								 aria-expanded="false">Seller</a>
+								<ul class="dropdown-menu">
+									<li class="nav-item"><a class="nav-link" href="sellerprodadd.aspx">cloth</a></li>
+									<li class="nav-item"><a class="nav-link" href="sellerreg.aspx">watch</a></li>
+								</ul>
+                            <li class="nav-item"><a class="nav-link" href="logout.aspx">Seller Logout</a></li>
+                             <%} %>
+							</li>
+                            </ul
+                    
+                     -->
 				<div class="col-lg-3 col-md-6 col-sm-6">
 					<div class="single-features">
 						<div class="f-icon">
@@ -49,15 +73,9 @@
 						<p>Free Shipping on all order</p>
 					</div>
 				</div>
-			    NVHGVGHVHGVGHVHJV[<br />
-                <br />
-                <br />
-                D<br />
-                H<br />
-                R<br />
-                J<br />
-                &#39;<br />
-                K</div>
+			
+   
+                </div>
 		   
 		</div>
 	</section>
