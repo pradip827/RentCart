@@ -70,7 +70,7 @@ public partial class billt : System.Web.UI.Page
     private void findaddress(String Orderid)
     {
         String mycon = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\Database.mdf;Integrated Security=True";
-        String myquery = "Select * from orderaddress where orderid='" + Orderid + "'";
+        String myquery = "orderid @Orderid='" + Orderid + "'";
         SqlConnection con = new SqlConnection(mycon);
         SqlCommand cmd = new SqlCommand();
         cmd.CommandText = myquery;

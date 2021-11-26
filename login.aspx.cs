@@ -19,14 +19,14 @@ public partial class login : System.Web.UI.Page
     protected void Button1_Click(object sender, EventArgs e)
     {
         dbcon.Open();
-        string checkuser = "select * from RegisteRC where Email_id='" + TextBox1.Text + "' ";
+        string checkuser = "login1 @User='" + TextBox1.Text + "' ";
         SqlCommand cmd = new SqlCommand(checkuser, dbcon);
         SqlDataReader rd = cmd.ExecuteReader();
         if (rd.HasRows)
         {
             dbcon.Close();
             dbcon.Open();
-            string checkpass = "select Password from RegisteRC where Email_id='" + TextBox1.Text + "'";
+            string checkpass = "checkpass @Pass='" + TextBox1.Text + "'";
 
             SqlCommand cmd1 = new SqlCommand(checkpass, dbcon);
             SqlCommand cmd2 = new SqlCommand("select CONVERT(varchar(32), HASHBYTES('MD5', '" + TextBox2.Text + "'), 2)", dbcon);

@@ -72,7 +72,7 @@ public partial class wbuynow : System.Web.UI.Page
                     dr = dt.NewRow();
                     String mycon = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\Database.mdf;Integrated Security=True";
                     SqlConnection scon = new SqlConnection(mycon);
-                    String myquery = "select * from watch where watchid=" + Request.QueryString["id"];
+                    String myquery = "buywatch @Id =" + Request.QueryString["id"];
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandText = myquery;
                     cmd.Connection = scon;
@@ -109,6 +109,12 @@ public partial class wbuynow : System.Web.UI.Page
                 if (GridView1.Rows.Count > 0)
                 {
                     GridView1.FooterRow.Cells[5].Text = "Total Amount";
+                    GridView1.FooterRow.Cells[6].Text = grandtotal().ToString();
+                    GridView1.FooterRow.Cells[6].Text = grandtotal().ToString();
+                    GridView1.FooterRow.Cells[6].Text = grandtotal().ToString();
+                    GridView1.FooterRow.Cells[6].Text = grandtotal().ToString();
+                    GridView1.FooterRow.Cells[6].Text = grandtotal().ToString();
+                    GridView1.FooterRow.Cells[6].Text = grandtotal().ToString();
                     GridView1.FooterRow.Cells[6].Text = grandtotal().ToString();
 
                 }
@@ -187,6 +193,6 @@ public partial class wbuynow : System.Web.UI.Page
 
         }
         saveaddress();
-        Response.Redirect("billt.aspx?orderid='"+Label1.Text);
+        Response.Redirect("billt.aspx?orderid='" + Label1.Text);
     }
 }

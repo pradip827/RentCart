@@ -72,7 +72,7 @@ public partial class buynow : System.Web.UI.Page
                     dr = dt.NewRow();
                     String mycon = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\Database.mdf;Integrated Security=True";
                     SqlConnection scon = new SqlConnection(mycon);
-                    String myquery = "select * from cloth where productId=" + Request.QueryString["id"];
+                    String myquery = "buycloth @Id=" + Request.QueryString["id"];
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandText = myquery;
                     cmd.Connection = scon;
@@ -187,6 +187,6 @@ public partial class buynow : System.Web.UI.Page
 
         }
         saveaddress();
-        Response.Redirect("billt.aspx?orderid="+ Label1.Text);
+        Response.Redirect("billt.aspx?orderid=" + Label1.Text);
     }
 }
