@@ -22,34 +22,46 @@ public partial class billt : System.Web.UI.Page
         findaddress(Label2.Text);
         showgrid(Label2.Text);
     }
+
+    [Obsolete]
     protected void Button1_Click(object sender, EventArgs e)
     {
         exportpdf();
         Response.Write("<script LANGUAGE='JavaScript' >alert('Email_ Id alrady exist')</script>");
     }
+
+    [Obsolete]
     private void exportpdf()
     {
         Response.ContentType = "application/pdf";
         Response.AddHeader("content-disposition", "attachment;filename=OrderInvoice.pdf");
         Response.Cache.SetCacheability(HttpCacheability.NoCache);
         StringWriter sw = new StringWriter();
+        
         HtmlTextWriter hw = new HtmlTextWriter(sw);
         Panel1.RenderControl(hw);
         StringReader sr = new StringReader(sw.ToString());
-        Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 100f, 0f);
+        Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 10f, 0f);
         HTMLWorker htmlparser = new HTMLWorker(pdfDoc);
         PdfWriter.GetInstance(pdfDoc, Response.OutputStream);
         pdfDoc.Open();
+        byte[] file;
+        file = System.IO.File.ReadAllBytes(Server.MapPath("~/img/logotitle.jpg"));//ImagePath    
+        iTextSharp.text.Image jpg = iTextSharp.text.Image.GetInstance(file);
+        jpg.ScaleToFit(150F, 150F);//Set width and height in float    
+        pdfDoc.Add(jpg);
+
         htmlparser.Parse(sr);
+        //Label7.Text = "" + "<img src='img/logotitle.jpg' >";
         pdfDoc.Close();
-        //Label7.Text="" +"<img src='/images/logo.jpg'>";
+        
         Response.Write(pdfDoc);
         Response.End();
     }
     private void findorderdate(String Orderid)
     {
         String mycon = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\Database.mdf;Integrated Security=True";
-        String myquery = "Select * from orderdetails where orderid='" + Orderid+"'" ;
+        String myquery = "order_details_main @opr=select_id, @orderid='" + Orderid+"'" ;
         SqlConnection con = new SqlConnection(mycon);
         SqlCommand cmd = new SqlCommand();
         cmd.CommandText = myquery;
@@ -70,10 +82,19 @@ public partial class billt : System.Web.UI.Page
     private void findaddress(String Orderid)
     {
         String mycon = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\Database.mdf;Integrated Security=True";
-        String myquery = "orderid @Orderid='" + Orderid + "'";
+        //String myquery = "orderid @Orderid='" + Orderid + "'";
         SqlConnection con = new SqlConnection(mycon);
-        SqlCommand cmd = new SqlCommand();
-        cmd.CommandText = myquery;
+
+        SqlCommand cmd = new SqlCommand("order_details ", con);
+
+        cmd.CommandType = CommandType.StoredProcedure;
+
+        cmd.Parameters.AddWithValue("@opr", "select_id");
+        cmd.Parameters.AddWithValue("@orderid", Orderid);
+        
+
+        
+        //cmd.CommandText = myquery;
         cmd.Connection = con;
         SqlDataAdapter da = new SqlDataAdapter();
         da.SelectCommand = cmd;
@@ -101,7 +122,7 @@ public partial class billt : System.Web.UI.Page
         dt.Columns.Add("totalprice");
         String mycon = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\Database.mdf;Integrated Security=True";
         SqlConnection scon = new SqlConnection(mycon);
-        String myquery = "select * from orderdetails where orderid='" + orderid + "'";
+        String myquery = "order_details_main @opr=select_id, @orderid='" + orderid + "'";
         SqlCommand cmd = new SqlCommand();
         cmd.CommandText = myquery;
         cmd.Connection = scon;

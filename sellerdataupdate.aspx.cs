@@ -60,12 +60,16 @@ public partial class sellerdataupdate : System.Web.UI.Page
 protected void info()
 {
     dbcon.Open();
-    string selectCmd = "select * from seller where Email_id='" + Session["username1"] + "'";
-    SqlCommand cmd = new SqlCommand(selectCmd, dbcon);
-    SqlDataAdapter da = new SqlDataAdapter(cmd);
+        SqlCommand cmd = new SqlCommand("seller_procedure", dbcon);
+        cmd.CommandType = CommandType.StoredProcedure;
+
+        cmd.Parameters.AddWithValue("@opr", "login");
+        cmd.Parameters.AddWithValue("@Email_ID", Session["username"]);
+
+        SqlDataAdapter da = new SqlDataAdapter(cmd);
 
 
-    DataSet ds = new DataSet();
+        DataSet ds = new DataSet();
 
     da.Fill(ds);
 
@@ -83,10 +87,21 @@ protected void info()
 protected void Button1_Click(object sender, EventArgs e)
     {
         dbcon.Open();
-        SqlCommand cmd = new SqlCommand("UPDATE  [seller] SET  First_Name= '" + TextBox1.Text + "' ,Last_Name= '" + TextBox2.Text + "',Contact_no= '" + TextBox4.Text + "' ,Address=  '" + TextBox8.Text + "',Tv= '" + TextBox5.Text + "' ,Grandmother= '" + TextBox6.Text + "' ,Edecutation= '" + TextBox7.Text + "' where Email_ID = '" + Session["username1"] + "'", dbcon);
+        SqlCommand cmd = new SqlCommand("seller_procedure", dbcon);
+        cmd.CommandType = CommandType.StoredProcedure;
 
-      
+        cmd.Parameters.AddWithValue("@opr", "update_profile");
+
+        cmd.Parameters.AddWithValue("@First_Name", TextBox1.Text);
+        cmd.Parameters.AddWithValue("@Last_Name", TextBox2.Text);
+        cmd.Parameters.AddWithValue("@Contact_no", TextBox4.Text);
+        cmd.Parameters.AddWithValue("@Email_ID", Session["username"]);
+        cmd.Parameters.AddWithValue("@Address", TextBox8.Text);
+        cmd.Parameters.AddWithValue("@Tv", TextBox5.Text);
+        cmd.Parameters.AddWithValue("@Grandmother", TextBox6.Text);
+        cmd.Parameters.AddWithValue("@Edecutation", TextBox7.Text);
         cmd.ExecuteNonQuery();
+        Response.Write("alert('Record Updated successfully')");
         cmd.Dispose();
         dbcon.Close();
         Response.Write("<script LANGUAGE='JavaScript' >alert('Data updated Successful')</script>");

@@ -19,8 +19,11 @@ public partial class Sellerhm : System.Web.UI.Page
                 SqlConnection mycon = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\Database.mdf;Integrated Security=True");
                 mycon.Open();
             
-            SqlCommand cmd = new SqlCommand("insert into [cloth] (productname,Price,productimage) values( @productname,@Price,@productimage)", mycon);
-          
+            SqlCommand cmd = new SqlCommand("cloths_procedure", mycon);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+
+            cmd.Parameters.AddWithValue("@opr", "Insert");
             cmd.Parameters.AddWithValue("@productname", TextBox1.Text);
             cmd.Parameters.AddWithValue("@Price",TextBox2.Text);
             cmd.Parameters.AddWithValue("@productimage",imagelink);
@@ -74,7 +77,7 @@ public partial class Sellerhm : System.Web.UI.Page
     {
         String mycon = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\Database.mdf;Integrated Security=True";
         SqlConnection scon = new SqlConnection(mycon);
-        String myquery = "select productid from cloth";
+        String myquery = "cloths_procedure @opr=id";
         SqlCommand cmd = new SqlCommand();
         cmd.CommandText = myquery;
         cmd.Connection = scon;
@@ -89,7 +92,7 @@ public partial class Sellerhm : System.Web.UI.Page
 
             String mycon1 = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\Database.mdf;Integrated Security=True";
             SqlConnection scon1 = new SqlConnection(mycon1);
-            String myquery1 = "select max(productId) from cloth";
+            String myquery1 = "cloths_procedure @opr=max_id";
             SqlCommand cmd1 = new SqlCommand();
             cmd1.CommandText = myquery1;
             cmd1.Connection = scon1;

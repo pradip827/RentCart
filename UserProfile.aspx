@@ -27,7 +27,7 @@
             <td><h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Question 3: What is your Edecutation:
                 </h5></td><td><h5><asp:TextBox ID="TextBox7" runat="server" BorderColor="#FF6600" autocomplete="off"></asp:TextBox></h5></td></tr>
             <tr><td><br /></td></tr>
-            <tr><td colspan="4"><center><asp:Button ID="Button3" runat="server" Text="edit" OnClick="Button3_Click"   Width="229px" Height="32px" BorderColor="#FF6600"></asp:Button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="Button1" runat="server" Text="Update" OnClick="Button1_Click"   Width="229px" Height="32px" BorderColor="#FF6600"></asp:Button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="Button4" runat="server" Text="Update" OnClick="Button4_Click"   Width="229px" Height="32px" BorderColor="#FF6600"></asp:Button></center></td></tr>
+            <tr><td colspan="4"><center><asp:Button ID="Button3" runat="server" Text="edit" OnClick="Button3_Click"   Width="229px" Height="32px" BorderColor="#FF6600"></asp:Button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="Button1" runat="server" Text="Update" OnClick="Button1_Click"   Width="229px" Height="32px" BorderColor="#FF6600"></asp:Button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Button ID="Button4" runat="server" Text="Cancel" OnClick="Button4_Click"   Width="229px" Height="32px" BorderColor="#FF6600"></asp:Button></center></td></tr>
        </big></table>
         
          </center></div>

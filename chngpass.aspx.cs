@@ -21,7 +21,7 @@ public partial class chnfpass : System.Web.UI.Page
             dbcon.Open();
             SqlCommand cmd2 = new SqlCommand("select CONVERT(varchar(32), HASHBYTES('MD5', '" + TextBox1.Text + "'), 2)", dbcon);
             String password = cmd2.ExecuteScalar().ToString();
-            string qry = "select Password from RegisteRc where Email_ID='" + Session["username"] + "'";
+            string qry = "register @opr=password, @Email_ID='" + Session["username1"] + "'";
             SqlCommand cmd = new SqlCommand(qry, dbcon);
             String oldpass = cmd.ExecuteScalar().ToString();
 
@@ -39,7 +39,8 @@ public partial class chnfpass : System.Web.UI.Page
             {
                 SqlCommand cmd3 = new SqlCommand("select CONVERT(varchar(32), HASHBYTES('MD5', '" + TextBox3.Text + "'), 2)", dbcon);
                 String password1 = cmd3.ExecuteScalar().ToString();
-                SqlCommand cmd1 = new SqlCommand("update RegisteRC set Password='" + password1 + "' where Email_ID='" + Session["username"] + "'", dbcon);
+		
+                SqlCommand cmd1 = new SqlCommand("register @opr=chng_pass , @Password='" + password1 + "', @Email_ID='" + Session["username1"] + "'", dbcon);
                 cmd1.ExecuteNonQuery();
 
 

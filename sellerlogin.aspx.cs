@@ -19,16 +19,27 @@ public partial class sellerlogin : System.Web.UI.Page
     protected void Button1_Click(object sender, EventArgs e)
     {
         dbcon.Open();
-        string checkuser = "select * from seller where Email_id='" + TextBox1.Text + "' ";
-        SqlCommand cmd = new SqlCommand(checkuser, dbcon);
+        // string checkuser = "select * from seller where Email_id='" + TextBox1.Text + "' ";
+        SqlCommand cmd = new SqlCommand("seller_procedure", dbcon);
+        cmd.CommandType = CommandType.StoredProcedure;
+
+        cmd.Parameters.AddWithValue("@opr", "login");
+        cmd.Parameters.AddWithValue("@Email_ID", TextBox1.Text);
+
+        
         SqlDataReader rd = cmd.ExecuteReader();
 
         if (rd.HasRows)
         {
             dbcon.Close();
             dbcon.Open();
-            string checkpass = "select Password from seller where Email_id='" + TextBox1.Text + "'";
-            SqlCommand cmd1 = new SqlCommand(checkpass, dbcon);
+            //string checkpass = "select Password from seller where Email_id='" + TextBox1.Text + "'";
+            //SqlCommand cmd1 = new SqlCommand(checkpass, dbcon);
+            SqlCommand cmd1 = new SqlCommand("seller_procedure", dbcon);
+            cmd1.CommandType = CommandType.StoredProcedure;
+
+            cmd1.Parameters.AddWithValue("@opr", "password");
+            cmd1.Parameters.AddWithValue("@Email_ID", TextBox1.Text);
             String pass = cmd1.ExecuteScalar().ToString();
             SqlCommand cmd2 = new SqlCommand("select CONVERT(varchar(32), HASHBYTES('MD5', '" + TextBox2.Text + "'), 2)", dbcon);
             String password = cmd2.ExecuteScalar().ToString();
@@ -40,7 +51,7 @@ public partial class sellerlogin : System.Web.UI.Page
                 Response.Redirect("~/home.aspx");
             }
             else
-                Response.Write("<script LANGUAGE='JavaScript' >alert('Login successfully')</script>");
+                Response.Write("<script LANGUAGE='JavaScript' >alert('Incurrect Password')</script>");
             //dbcon.Close();
         }
         else

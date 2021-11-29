@@ -28,7 +28,7 @@ public partial class passchng : System.Web.UI.Page
        // using (SqlConnection con = new SqlConnection(constr))
         SqlConnection dbcon = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\Database.mdf;Integrated Security=True");
         {
-            using (SqlCommand cmd = new SqlCommand("change_password @User= @Email"))
+            using (SqlCommand cmd = new SqlCommand("register @opr=chng_pass,@Email_ID= @Email"))
             {
                 cmd.Parameters.AddWithValue("@Email", txtEmail.Text.Trim());
                 cmd.Connection = dbcon;

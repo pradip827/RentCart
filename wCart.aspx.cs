@@ -33,9 +33,16 @@ public partial class wCart : System.Web.UI.Page
                     dr = dt.NewRow();
                     String mycon = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\Database.mdf;Integrated Security=True";
                     SqlConnection scon = new SqlConnection(mycon);
-                    String myquery = "buywatch @Id=" + Request.QueryString["id"];
-                    SqlCommand cmd = new SqlCommand();
-                    cmd.CommandText = myquery;
+                    //String myquery = "buywatch @Id=" + Request.QueryString["id"];
+                    SqlCommand cmd = new SqlCommand("watch_procdure ", scon);
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@opr", "by_id");
+                    cmd.Parameters.AddWithValue("@watchid", Request.QueryString["id"]);
+
+                    //SqlCommand cmd = new SqlCommand();
+                    //cmd.CommandText = myquery;
                     cmd.Connection = scon;
                     SqlDataAdapter da = new SqlDataAdapter();
                     da.SelectCommand = cmd;
@@ -73,7 +80,7 @@ public partial class wCart : System.Web.UI.Page
                     dr = dt.NewRow();
                     String mycon = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\Database.mdf;Integrated Security=True";
                     SqlConnection scon = new SqlConnection(mycon);
-                    String myquery = "buywatch @Id=" + Request.QueryString["id"];
+                    String myquery = "watch_procdure @opr=by_id,@watchid=" + Request.QueryString["id"];
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandText = myquery;
                     cmd.Connection = scon;

@@ -19,16 +19,24 @@ public partial class login : System.Web.UI.Page
     protected void Button1_Click(object sender, EventArgs e)
     {
         dbcon.Open();
-        string checkuser = "login1 @User='" + TextBox1.Text + "' ";
-        SqlCommand cmd = new SqlCommand(checkuser, dbcon);
+        //string checkuser = "register @opr=login,@Email_id='" + TextBox1.Text + "' ";
+        SqlCommand cmd = new SqlCommand("register", dbcon);
+        cmd.CommandType = CommandType.StoredProcedure;
+
+        cmd.Parameters.AddWithValue("@opr", "login");
+        cmd.Parameters.AddWithValue("@Email_ID", TextBox1.Text  );
+
         SqlDataReader rd = cmd.ExecuteReader();
         if (rd.HasRows)
         {
             dbcon.Close();
             dbcon.Open();
-            string checkpass = "checkpass @Pass='" + TextBox1.Text + "'";
+            SqlCommand cmd1 = new SqlCommand("register", dbcon);
+            cmd1.CommandType = CommandType.StoredProcedure;
 
-            SqlCommand cmd1 = new SqlCommand(checkpass, dbcon);
+            cmd1.Parameters.AddWithValue("@opr", "password");
+            cmd1.Parameters.AddWithValue("@Email_ID", TextBox1.Text);
+
             SqlCommand cmd2 = new SqlCommand("select CONVERT(varchar(32), HASHBYTES('MD5', '" + TextBox2.Text + "'), 2)", dbcon);
             String password = cmd2.ExecuteScalar().ToString();
             String pass = cmd1.ExecuteScalar().ToString();

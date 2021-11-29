@@ -44,11 +44,16 @@
         <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Download Invoice" BackColor="#FF6600" Height="50px" Width="152px"  />
     </p>
     <asp:Panel ID="Panel1" runat="server"  >
+       <!-- <table>
+            <tr><td><h1>RentCart</h1></td><td><img src="img/logotitle.jpg" height="200px" width="200px" /></td></tr>
+        </table> 
+        <!--<asp:Label ID="Label7" runat="server" Font-Bold="True" Height="200px" Width="200px" align="center"></asp:Label>
+        -->
         <table border="1" class="auto-style2">
             <tr><td>
                 </td></tr>
             <tr>
-                <td class="auto-style8">RentCart Invoice<br />
+                <td class="auto-style8">RentCart Invoice &nbsp;<br />
 
             </tr>
             <tr>
@@ -75,7 +80,7 @@
                         <Columns>
                             <asp:BoundField DataField="sno" HeaderText="Sr.No">
                             <HeaderStyle HorizontalAlign="Center" />
-                            <ItemStyle HorizontalAlign="Center" />
+                            <ItemStyle />
                             </asp:BoundField>
                             <asp:BoundField DataField="productId" HeaderText="Product ID">
                             <ItemStyle HorizontalAlign="Center" />

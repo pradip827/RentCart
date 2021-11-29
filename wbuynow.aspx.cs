@@ -72,7 +72,7 @@ public partial class wbuynow : System.Web.UI.Page
                     dr = dt.NewRow();
                     String mycon = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\Database.mdf;Integrated Security=True";
                     SqlConnection scon = new SqlConnection(mycon);
-                    String myquery = "buywatch @Id =" + Request.QueryString["id"];
+                    String myquery = "watch_procdure @opr=by_id, @watchid =" + Request.QueryString["id"];
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandText = myquery;
                     cmd.Connection = scon;

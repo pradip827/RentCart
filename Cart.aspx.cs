@@ -33,7 +33,7 @@ public partial class Cart : System.Web.UI.Page
                     dr = dt.NewRow();
                     String mycon = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\Database.mdf;Integrated Security=True";
                     SqlConnection scon = new SqlConnection(mycon);
-                    String myquery = "buycloth @Id=" + Request.QueryString["id"];
+                    String myquery = "cloths_procedure @opr=select_id, @productId=" + Request.QueryString["id"];
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandText = myquery;
                     cmd.Connection = scon;
@@ -73,9 +73,16 @@ public partial class Cart : System.Web.UI.Page
                     dr = dt.NewRow();
                     String mycon = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\Database.mdf;Integrated Security=True";
                     SqlConnection scon = new SqlConnection(mycon);
-                    String myquery = "buycloth @Id=" + Request.QueryString["id"];
-                    SqlCommand cmd = new SqlCommand();
-                    cmd.CommandText = myquery;
+                    //String myquery = "buycloth @Id=" + Request.QueryString["id"];
+
+                    SqlCommand cmd = new SqlCommand("cloths_procedure", scon);
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@opr", "select_id");
+                    cmd.Parameters.AddWithValue("@productId", Request.QueryString["id"]);
+                    //SqlCommand cmd = new SqlCommand();
+                    //cmd.CommandText = myquery;
                     cmd.Connection = scon;
                     SqlDataAdapter da = new SqlDataAdapter();
                     da.SelectCommand = cmd;

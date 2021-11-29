@@ -16,7 +16,7 @@ public partial class sellerchangepass : System.Web.UI.Page
         string pp = TextBox1.Text;
         string pass = TextBox2.Text;
         dbcon.Open();
-        string qry = "select * from seller where Email_ID='" + Session["username1"] + "'";
+        string qry = "seller_procedure @opr=password, @Email_ID='" + Session["username1"] + "'";
         SqlCommand cmd = new SqlCommand(qry, dbcon);
 
         SqlDataAdapter SQLAdapter = new SqlDataAdapter(cmd);
@@ -30,7 +30,8 @@ public partial class sellerchangepass : System.Web.UI.Page
         }
         else
         {
-            SqlCommand cmd1 = new SqlCommand("update seller set Password='" + TextBox3.Text + "' where Password= '" + TextBox1.Text + "'", dbcon);
+            SqlCommand cmd1 = new SqlCommand("seller_procedure @opr=chng_pass , @Password='" + password1 + "', @Email_ID='" + Session["username"] + "'", dbcon);
+            cmd1.ExecuteNonQuery();
             SqlDataAdapter SQLAdapter1 = new SqlDataAdapter(cmd1);
             SQLAdapter1.Fill(DT);
             Label1.Text = "Password changed successfully";

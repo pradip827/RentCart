@@ -72,9 +72,15 @@ public partial class buynow : System.Web.UI.Page
                     dr = dt.NewRow();
                     String mycon = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\Database.mdf;Integrated Security=True";
                     SqlConnection scon = new SqlConnection(mycon);
-                    String myquery = "buycloth @Id=" + Request.QueryString["id"];
-                    SqlCommand cmd = new SqlCommand();
-                    cmd.CommandText = myquery;
+                    // String myquery = "buycloth @Id=" + Request.QueryString["id"];
+                    SqlCommand cmd = new SqlCommand("cloth_procdure", scon);
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@opr", "select_id");
+                    cmd.Parameters.AddWithValue("@productId", Request.QueryString["id"]);
+
+                    //cmd.CommandText = myquery;
                     cmd.Connection = scon;
                     SqlDataAdapter da = new SqlDataAdapter();
                     da.SelectCommand = cmd;

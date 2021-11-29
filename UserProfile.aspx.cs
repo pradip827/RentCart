@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+
 using System.Web.UI.WebControls;
 using System.Data;
 using System.Data.SqlClient;
@@ -10,7 +11,7 @@ using System.Configuration;
 
 public partial class UserProfile : System.Web.UI.Page
 {
-   
+
     SqlConnection dbcon = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\Database.mdf;Integrated Security=True");
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -57,28 +58,37 @@ public partial class UserProfile : System.Web.UI.Page
         Button1.Visible = true;
         Button3.Visible = false;
     }
-    
-protected void info()
-    { 
+
+    protected void info()
+    {
         dbcon.Open();
-        string selectCmd = "select * from RegisteRC where Email_id='" + Session["username"] + "'";
-        SqlCommand cmd = new SqlCommand(selectCmd, dbcon);
+        /* string selectCmd = "select * from RegisteRC where Email_id='" + Session["username"] + "'";
+         SqlCommand cmd = new SqlCommand(selectCmd, dbcon);*/
+        SqlCommand cmd = new SqlCommand("register", dbcon);
+        cmd.CommandType = CommandType.StoredProcedure;
+
+        cmd.Parameters.AddWithValue("@opr", "login");
+        cmd.Parameters.AddWithValue("@Email_ID", Session["username"]);
+
         SqlDataAdapter da = new SqlDataAdapter(cmd);
-        
+
 
         DataSet ds = new DataSet();
+       /* if (ds != null && ds.Tables[0].Rows.Count > 1)
+        {*/
+       
+            da.Fill(ds);
+         
 
-        da.Fill(ds);
-
-        TextBox1.Text = ds.Tables[0].Rows[0]["First_Name"].ToString();
-        TextBox2.Text = ds.Tables[0].Rows[0]["Last_Name"].ToString();
-        TextBox3.Text = ds.Tables[0].Rows[0]["Email_id"].ToString();
-        TextBox4.Text = ds.Tables[0].Rows[0]["Contact_no"].ToString();
-        TextBox8.Text=ds.Tables[0].Rows[0]["Address"].ToString();
-        TextBox5.Text = ds.Tables[0].Rows[0]["Tv"].ToString();
-        TextBox6.Text = ds.Tables[0].Rows[0]["Grandmother"].ToString();
-        TextBox7.Text = ds.Tables[0].Rows[0]["Edecutation"].ToString();
-
+            TextBox1.Text = ds.Tables[0].Rows[0]["First_Name"].ToString();
+            TextBox2.Text = ds.Tables[0].Rows[0]["Last_Name"].ToString();
+            TextBox3.Text = ds.Tables[0].Rows[0]["Email_id"].ToString();
+            TextBox4.Text = ds.Tables[0].Rows[0]["Contact_no"].ToString();
+            TextBox8.Text = ds.Tables[0].Rows[0]["Address"].ToString();
+            TextBox5.Text = ds.Tables[0].Rows[0]["Tv"].ToString();
+            TextBox6.Text = ds.Tables[0].Rows[0]["Grandmother"].ToString();
+            TextBox7.Text = ds.Tables[0].Rows[0]["Edecutation"].ToString();
+       
         dbcon.Close();
     }
 
@@ -86,17 +96,22 @@ protected void info()
     {
 
         dbcon.Open();
-        SqlCommand cmd = new SqlCommand("UPDATE  [RegisteRC] SET  First_Name= '" + TextBox1.Text + "' ,Last_Name= '" + TextBox2.Text + "',Contact_no= '" + TextBox4.Text + "' ,Address=  '" + TextBox8.Text + "',Tv= '" + TextBox5.Text + "' ,Grandmother= '" + TextBox6.Text + "' ,Edecutation= '" + TextBox7.Text + "' where Email_ID = '" + Session["username"]+"'" , dbcon);
-       
-        /*cmd.Parameters.AddWithValue("@First_Name", TextBox1.Text);
+        // SqlCommand cmd = new SqlCommand("UPDATE  [RegisteRC] SET  First_Name= '" + TextBox1.Text + "' ,Last_Name= '" + TextBox2.Text + "',Contact_no= '" + TextBox4.Text + "' ,Address=  '" + TextBox8.Text + "',Tv= '" + TextBox5.Text + "' ,Grandmother= '" + TextBox6.Text + "' ,Edecutation= '" + TextBox7.Text + "' where Email_ID = '" + Session["username"] + "'", dbcon);
+        SqlCommand cmd = new SqlCommand("register", dbcon);
+        cmd.CommandType = CommandType.StoredProcedure;
+
+        cmd.Parameters.AddWithValue("@opr", "update_profile");
+        
+        cmd.Parameters.AddWithValue("@First_Name", TextBox1.Text);
         cmd.Parameters.AddWithValue("@Last_Name", TextBox2.Text);
         cmd.Parameters.AddWithValue("@Contact_no", TextBox4.Text);
-        cmd.Parameters.AddWithValue("@Email_ID", TextBox3.Text);
+        cmd.Parameters.AddWithValue("@Email_ID", Session["username"]);
         cmd.Parameters.AddWithValue("@Address", TextBox8.Text);
         cmd.Parameters.AddWithValue("@Tv", TextBox5.Text);
         cmd.Parameters.AddWithValue("@Grandmother", TextBox6.Text);
-        cmd.Parameters.AddWithValue("@Edecutation", TextBox7.Text);*/
+        cmd.Parameters.AddWithValue("@Edecutation", TextBox7.Text);
         cmd.ExecuteNonQuery();
+        Response.Write("alert('Record Updated successfully')");
         cmd.Dispose();
         dbcon.Close();
 
